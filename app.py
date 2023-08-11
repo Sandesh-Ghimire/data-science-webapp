@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-data_url=("/home/rhyme/Desktop/Project/Book1.xlsx")
+data_url=("/home/rhyme/Desktop/Project/Book1.csv")
 
 
 st.title("motor vechicle colliosions in new york city")
@@ -22,6 +22,9 @@ def load_data(nrows):
 data=load_data(50000)
 
 
+st.header("where are the most people injured in nyc")
+injured_people=st.slider("number of persons injured in vechicle colliosions",0.19)
+st.map(data.query("injured_persons>=@injured_people")[["latitude","longitude"]].dropna(how="any"))
 
 
 
