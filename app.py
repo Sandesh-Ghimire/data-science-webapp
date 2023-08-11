@@ -28,6 +28,10 @@ st.map(data.query("injured_persons>=@injured_people")[["latitude","longitude"]].
 
 
 
+st.header("how many collisions occur during the given time of the day?")
+hour = st.slider("hour to look at", 0,23)
+data=data[data['date/time'].dt.hour == hour]
+
 
 if st.checkbox("show raw data", False):
     st.subheader('raw data')
