@@ -52,8 +52,12 @@ layers=[
         data = data[['date/time','latitude','longitude']],
         get_position = ['longitude','latitude'],
         radius=100,
-    )
-]
+        extruded=True,  #changes to 3D if set to false map will be 2d.
+        pickable=True,
+        elevation_scale=4,
+        elevation_range=[0,1000],
+    ),
+],
 
 ))
 
