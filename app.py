@@ -37,7 +37,7 @@ st.markdown("Vehicle collisions between %i:00 and %i:00" %(hour,(hour +1)%24))
 midpoint= (np.average(data['latitude']),np.average(data['longitude']))
 
 
-st.write(pdk.crash_date_crash_time(
+st.write(pdk.Deck(
     map_style="mapbox://styles/mapbox/light-v9",
     initial_view_state={
         "latitude":midpoint[0],
@@ -45,6 +45,16 @@ st.write(pdk.crash_date_crash_time(
         "zoom":11,
         "pitch":50,
     },
+
+layers=[
+    pdk.Layer(
+        "HexagonLayer",
+        data = data[['date/time','latitude','longitude']],
+        get_position = ['longitude','latitude'],
+        radius=100,
+    )
+]
+
 ))
 
 
