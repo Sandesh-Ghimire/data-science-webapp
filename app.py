@@ -22,7 +22,7 @@ def load_data(nrows):
     return data
 
 data=load_data(50000)
-
+original_data = data # can be used to filter later as its original data.
 
 st.header("Where are the most people injured in nyc")
 injured_people=st.slider("Number of persons injured in vechicle colliosions",0.19)
@@ -75,6 +75,21 @@ chart_data = pd.DataFrame({'minute': range(60), 'crashes':hist})
 fig = px.bar (chart_data, x='minute', y='crashes', hover_data=['minute','crashes'], height=400)
 st.write(fig)
 
+
+
+st.header("top 5 dangerous streets by affected people")
+select = st.selectbox('Affected type of people', hover_data=['minute','crashes'],height=400)
+
+if select=='Pedestrians':
+    st.write(original_data.query("injured_pedestrains>=1")[["on_street_name","injured_pedestrains"]].sort_values(by=['injured_pedestrains'],ascending=False).dropna(how='any')[:5])
+
+
+elif select=='Cyclists':
+    st.write(original_data.query("injured_cyclists>=1")[["on_street_name","injured_cyclists"]].sort_values(by=['injured_cyclists'],ascending=False).dropna(how='any')[:5])
+
+
+else:
+    st.write(original_data.query("injured_motorists>=1")[["on_street_name","injured_motorists"]].sort_values(by=['injured_motorists'],ascending=False).dropna(how='any')[:5])
 
 
 if st.checkbox("Show raw data", False):
