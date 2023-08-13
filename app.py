@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import pydeck as pdk
 
 data_url=("/home/rhyme/Desktop/Project/Book1.csv")
 
@@ -31,6 +31,25 @@ st.map(data.query("injured_persons>=@injured_people")[["latitude","longitude"]].
 st.header("How many collisions occur during the given time of the day?")
 hour = st.slider("Hour to look at", 0,23)
 data=data[data['date/time'].dt.hour == hour]
+
+
+st.markdown("Vehicle collisions between %i:00 and %i:00" %(hour,(hour +1)%24))
+midpoint= (np.average(data['latitude']),np.average(data['longitude']))
+
+
+st.write(pdk.crash_date_crash_time(
+    map_style="mapbox://styles/mapbox/light-v9",
+    initial_view_state={
+        "latitude":midpoint[0],
+        "longitude":midpoint[1],
+        "zoom":11,
+        "pitch":50,
+    },
+))
+
+
+
+
 
 
 if st.checkbox("Show raw data", False):
