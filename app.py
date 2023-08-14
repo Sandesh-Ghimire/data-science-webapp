@@ -2,12 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pydeck as pdk
-
 import plotly.express as px
 
 data_url=("/home/rhyme/Desktop/Project/Book1.csv")
-
-
 st.title("Motor vechicle colliosions in new york city")
 
 st.markdown("This app is a dashboard created by the help of streamline  to analyze motor vechicle collisioon for nyc")
@@ -27,8 +24,6 @@ original_data = data # can be used to filter later as its original data.
 st.header("Where are the most people injured in nyc")
 injured_people=st.slider("Number of persons injured in vechicle colliosions",0.19)
 st.map(data.query("injured_persons>=@injured_people")[["latitude","longitude"]].dropna(how="any"))
-
-
 
 st.header("How many collisions occur during the given time of the day?")
 hour = st.slider("Hour to look at", 0,23)
@@ -60,9 +55,7 @@ layers=[
         elevation_range=[0,1000],
     ),
 ],
-
 ))
-
 
 st.subheader("Breakdown by minute between %i:00 and %i:00" %(hour,(hour +1)%24))
 filtered = data[
@@ -77,7 +70,7 @@ st.write(fig)
 
 
 
-st.header("top 5 dangerous streets by affected people")
+st.header("Top 5 dangerous streets by affected people")
 select = st.selectbox('Affected type of people', hover_data=['minute','crashes'],height=400)
 
 if select=='Pedestrians':
